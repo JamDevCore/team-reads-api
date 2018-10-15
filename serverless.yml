@@ -211,3 +211,95 @@ functions:
           method: put
           private: false
           cors: true
+# Teams
+  createTeam:
+    handler: functions/teams/create.main
+    warmup: true
+    events:
+      - http:
+          path: team
+          method: post
+          private: false
+          cors: true
+  listTeams:
+    handler: functions/teams/list.main
+    warmup: true
+    events:
+      - http:
+          path: team
+          method: get
+          private: false
+          cors: true
+  findTeam:
+    handler: functions/teams/find.main
+    warmup: true
+    events:
+      - http:
+          path: team/{id}
+          method: get
+          private: false
+          cors: true
+  deleteTeam:
+    handler: functions/teams/delete.main
+    warmup: true
+    events:
+      - http:
+          path: team/{id}
+          method: delete
+          private: false
+          cors: true
+  updateTeam:
+    handler: functions/teams/update.main
+    warmup: true
+    events:
+      - http:
+          path: team/{id}
+          method: put
+          private: false
+          cors: true
+  # Users
+  createUser:
+    handler: functions/users/create.main
+    warmup: true
+    events:
+      - http:
+          path: user
+          method: post
+          private: false
+          cors: true
+  listUsers:
+    handler: functions/users/list.main
+    warmup: true
+    events:
+      - http:
+          path: user
+          method: get
+          private: false
+          cors: true
+  findUser:
+    handler: functions/users/find.main
+    warmup: true
+    events:
+      - http:
+          path: user/{id}
+          method: get
+          private: false
+          cors: true
+  deleteUser:
+    handler: functions/users/delete.main
+    warmup: true
+    events:
+      - http:
+          path: user/{id}
+          method: delete
+          private: false
+          cors: true
+  updateUser:
+    handler: functions/users/update.main
+    warmup: true
+    events:
+      - http:
+          path: user/{id}
+          method: put
+          private: false
+          cors: true

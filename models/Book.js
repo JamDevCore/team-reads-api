@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 
-/* Delete the Account model so it can be recreated
-by another endpoint without an error */
 delete mongoose.connection.models['Book'];
 
 const BookSchema = new mongoose.Schema({
