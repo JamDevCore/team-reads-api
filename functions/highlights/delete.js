@@ -1,6 +1,6 @@
 import { connectToDatabase } from '../../utility/db-connect';
 import { success, failure } from '../../utility/db-response';
-import Book from '../../models/Book';
+import Highlight from '../../models/Highlight';
 
 export function main(event, context, callback) {
   // /** Immediate response for WarmUP plugin */
@@ -9,13 +9,13 @@ export function main(event, context, callback) {
     return callback(null, 'Lambda is warm!')
   }
   context.callbackWaitsForEmptyEventLoop = false;
+  // // Request body is passed in as a JSON encoded string in 'event.body'
+  const highlightId = event.pathParameters.id;
 
-  const bookId = event.pathParameters.id;
-  console.log(bookId)
   connectToDatabase()
     .then(async () => {
-        const book = await Book.findOne({ _id: bookId });
-        callback(null, success(book))
+        const highlight = await Highlight.findAndDeleteOne({ _id: highlightId });
+        callback(null, success(highlight))
         .catch(err => {
           console.log(err);
           callback(null, failure({
@@ -29,6 +29,6 @@ export function main(event, context, callback) {
       callback(null, failure({
         status: false,
         error: err.message
-      }));
+      }))
     });
 }

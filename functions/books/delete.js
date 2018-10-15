@@ -12,10 +12,9 @@ export function main(event, context, callback) {
   // // Request body is passed in as a JSON encoded string in 'event.body'
 
   const bookId = event.pathParameters.id;
-
   connectToDatabase()
     .then(async () => {
-        const book = await Book.deleteOne({ _id: bookId });
+        const book = await Book.findOneAndDelete({ _id: bookId });
         callback(null, success(book))
         .catch(err => {
           console.log(err);
@@ -30,6 +29,6 @@ export function main(event, context, callback) {
       callback(null, failure({
         status: false,
         error: err.message
-      }))
+      }));
     });
 }

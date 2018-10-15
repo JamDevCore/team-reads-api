@@ -14,7 +14,7 @@ export function main(event, context, callback) {
 
   connectToDatabase()
     .then(async () => {
-        const note = await note.findOne({ _id: noteId });
+        const note = await Note.findOne({ _id: noteId });
         callback(null, success(note))
         .catch(err => {
           console.log(err);

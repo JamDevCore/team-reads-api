@@ -13,7 +13,8 @@ export function main(event, context, callback) {
 
   connectToDatabase()
     .then(async () => {
-        const notes = await Note.find();
+        const params = event.queryStringParameters;
+        const notes = await Note.find(params);
         callback(null, success({
           object: 'list',
           url: event.path,
@@ -27,12 +28,5 @@ export function main(event, context, callback) {
             error: err.message
           }))
         });
-    })
-    .catch(err => {
-      console.log(err);
-      callback(null, failure({
-        status: false,
-        error: err.message
-      }))
     });
 }

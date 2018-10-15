@@ -1,6 +1,6 @@
 import { connectToDatabase } from '../../utility/db-connect';
 import { success, failure } from '../../utility/db-response';
-import Book from '../../models/Book';
+import Shelf from '../../models/Shelf';
 
 export function main(event, context, callback) {
   // /** Immediate response for WarmUP plugin */
@@ -10,12 +10,12 @@ export function main(event, context, callback) {
   }
   context.callbackWaitsForEmptyEventLoop = false;
 
-  const bookId = event.pathParameters.id;
-  console.log(bookId)
+  const shelfId = event.pathParameters.id;
+
   connectToDatabase()
     .then(async () => {
-        const book = await Book.findOne({ _id: bookId });
-        callback(null, success(book))
+        const shelf = await Shelf.findOne({ _id: shelfId });
+        callback(null, success(shelf))
         .catch(err => {
           console.log(err);
           callback(null, failure({
@@ -29,6 +29,6 @@ export function main(event, context, callback) {
       callback(null, failure({
         status: false,
         error: err.message
-      }));
+      }))
     });
 }

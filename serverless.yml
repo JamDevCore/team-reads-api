@@ -64,13 +64,22 @@ functions:
           method: delete
           private: false
           cors: true
-## Note
+  updateBook:
+    handler: functions/books/update.main
+    warmup: true
+    events:
+      - http:
+          path: book/{id}
+          method: put
+          private: false
+          cors: true
+# Note
   createNote:
     handler: functions/notes/create.main
     warmup: true
     events:
       - http:
-          path: book
+          path: note
           method: post
           private: false
           cors: true
@@ -79,7 +88,7 @@ functions:
     warmup: true
     events:
       - http:
-          path: book
+          path: note
           method: get
           private: false
           cors: true
@@ -88,7 +97,7 @@ functions:
     warmup: true
     events:
       - http:
-          path: book/{id}
+          path: note/{id}
           method: get
           private: false
           cors: true
@@ -97,7 +106,108 @@ functions:
     warmup: true
     events:
       - http:
-          path: book/{id}
+          path: note/{id}
           method: delete
           private: false
-          cors: Note
+          cors: true
+  updateNote:
+    handler: functions/notes/update.main
+    warmup: true
+    events:
+      - http:
+          path: note/{id}
+          method: put
+          private: false
+          cors: true
+  # Highlights
+  createHighlight:
+    handler: functions/highlights/create.main
+    warmup: true
+    events:
+      - http:
+          path: highlight
+          method: post
+          private: false
+          cors: true
+  listHighlights:
+    handler: functions/highlights/list.main
+    warmup: true
+    events:
+      - http:
+          path: highlight
+          method: get
+          private: false
+          cors: true
+  findHighlight:
+    handler: functions/highlights/find.main
+    warmup: true
+    events:
+      - http:
+          path: highlight/{id}
+          method: get
+          private: false
+          cors: true
+  deleteHighlight:
+    handler: functions/highlights/delete.main
+    warmup: true
+    events:
+      - http:
+          path: highlight/{id}
+          method: delete
+          private: false
+          cors: true
+  updateHighlight:
+    handler: functions/highlights/update.main
+    warmup: true
+    events:
+      - http:
+          path: highlight/{id}
+          method: put
+          private: false
+          cors: true
+# Shelves
+  createShelf:
+    handler: functions/shelves/create.main
+    warmup: true
+    events:
+      - http:
+          path: shelf
+          method: post
+          private: false
+          cors: true
+  listShelves:
+    handler: functions/shelves/list.main
+    warmup: true
+    events:
+      - http:
+          path: shelf
+          method: get
+          private: false
+          cors: true
+  findShelf:
+    handler: functions/shelves/find.main
+    warmup: true
+    events:
+      - http:
+          path: shelf/{id}
+          method: get
+          private: false
+          cors: true
+  deleteShelf:
+    handler: functions/shelves/delete.main
+    warmup: true
+    events:
+      - http:
+          path: shelf/{id}
+          method: delete
+          private: false
+          cors: true
+  updateShelf:
+    handler: functions/shelves/update.main
+    warmup: true
+    events:
+      - http:
+          path: shelf/{id}
+          method: put
+          private: false
+          cors: true

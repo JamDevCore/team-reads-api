@@ -10,12 +10,11 @@ export function main(event, context, callback) {
   }
   context.callbackWaitsForEmptyEventLoop = false;
   // // Request body is passed in as a JSON encoded string in 'event.body'
-
   const noteId = event.pathParameters.id;
 
   connectToDatabase()
     .then(async () => {
-        const note = await note.deleteOne({ _id: noteId });
+        const note = await Note.finaAndDeleteOne({ _id: noteId });
         callback(null, success(note))
         .catch(err => {
           console.log(err);

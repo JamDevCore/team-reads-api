@@ -12,19 +12,20 @@ export function main(event, context, callback) {
   // // Request body is passed in as a JSON encoded string in 'event.body'
   connectToDatabase()
     .then(async () => {
-        console.log(event.queryStringParameters)
-        const books = await Book.find();
+        const params = event.queryStringParameters;
+        const books = await Book.find(params);
         callback(null, success({
           object: 'list',
           url: event.path,
           count: books.length,
           data: books,
-        }))
-        .catch(err => {
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
+        }));
+    })
+    .catch(err => {
+      console.log(err);
+      callback(null, failure({
+        status: false,
+        error: err.message
+      }));
     });
 }
