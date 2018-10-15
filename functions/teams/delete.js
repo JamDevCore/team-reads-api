@@ -13,7 +13,6 @@ export function main(event, context, callback) {
   connectToDatabase()
     .then(async () => {
         const teamId = event.pathParameters.id;
-        
         const team = await Team.findOneAndDelete({ _id: teamId });
         callback(null, success(team));
     })

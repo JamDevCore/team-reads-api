@@ -7,7 +7,7 @@ const ShelfSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  userId: {
+  ownerId: {
     type: String,
     required: true,
   },

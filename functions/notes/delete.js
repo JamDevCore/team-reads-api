@@ -9,12 +9,11 @@ export function main(event, context, callback) {
     return callback(null, 'Lambda is warm!')
   }
   context.callbackWaitsForEmptyEventLoop = false;
-  // // Request body is passed in as a JSON encoded string in 'event.body'
-  const noteId = event.pathParameters.id;
 
   connectToDatabase()
     .then(async () => {
-        const note = await Note.findAndDeleteOne({ _id: noteId });
+        const noteId = event.pathParameters.id;
+        const note = await Note.findOneAndDelete({ _id: noteId });
         callback(null, success(note));
     })
     .catch(err => {

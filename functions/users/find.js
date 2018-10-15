@@ -9,12 +9,11 @@ export function main(event, context, callback) {
     return callback(null, 'Lambda is warm!')
   }
   context.callbackWaitsForEmptyEventLoop = false;
-
-  const userId = event.pathParameters.id;
   connectToDatabase()
     .then(async () => {
+        const userId = event.pathParameters.id;
         const user = await User.findOne({ _id: userId });
-        callback(null, success(user))
+        callback(null, success(user));
     })
     .catch(err => {
       console.log(err);

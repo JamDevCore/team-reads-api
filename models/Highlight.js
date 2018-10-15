@@ -14,6 +14,10 @@ const HighlightSchema = new mongoose.Schema({
   userId: {
     type: String,
     optional : true
+  },
+  text: {
+    type: String,
+    required: true,
   }
 });
 

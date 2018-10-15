@@ -16,7 +16,7 @@ export function main(event, context, callback) {
 
   connectToDatabase()
     .then(async () => {
-        const newhighlight = await Highlight.create(highlight);
+        const newHighlight = await Highlight.create(highlight);
         callback(null, success(newHighlight));
     })
     .catch(err => {
