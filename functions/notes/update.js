@@ -9,22 +9,15 @@ export function main(event, context, callback) {
     return callback(null, 'Lambda is warm!')
   }
   context.callbackWaitsForEmptyEventLoop = false;
-  // // Request body is passed in as a JSON encoded string in 'event.body'
-  const data = JSON.parse(event.body);
-
-  const updates = data;
 
   connectToDatabase()
     .then(async () => {
-        const updatedNote = await Note.findByIdAndUpdate(updates);
-        callback(null, success(updatedNote))
-        .catch(err => {
-          console.log(err);
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
+        const data = JSON.parse(event.body);
+        const updates = data;
+        const noteId = event.pathParameters.id;
+        
+        const updatedNote = await Note.findOneAndUpdate({ _id: noteId }, updates, { new: true });
+        callback(null, success(updatedNote));
     })
     .catch(err => {
       callback(null, failure({

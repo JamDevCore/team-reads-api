@@ -10,18 +10,12 @@ export function main(event, context, callback) {
   }
   context.callbackWaitsForEmptyEventLoop = false;
 
-  const teamId = event.pathParameters.id;
   connectToDatabase()
     .then(async () => {
+        const teamId = event.pathParameters.id;
+        
         const team = await Team.findOne({ _id: teamId });
-        callback(null, success(team))
-        .catch(err => {
-          console.log(err);
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
+        callback(null, success(team));
     })
     .catch(err => {
       console.log(err);

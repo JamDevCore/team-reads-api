@@ -15,14 +15,7 @@ export function main(event, context, callback) {
   connectToDatabase()
     .then(async () => {
         const highlight = await Highlight.findOne({ _id: highlightId });
-        callback(null, success(highlight))
-        .catch(err => {
-          console.log(err);
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
+        callback(null, success(highlight));
     })
     .catch(err => {
       console.log(err);

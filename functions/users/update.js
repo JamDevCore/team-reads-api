@@ -10,21 +10,15 @@ export function main(event, context, callback) {
   }
   context.callbackWaitsForEmptyEventLoop = false;
   // // Request body is passed in as a JSON encoded string in 'event.body'
-  const data = JSON.parse(event.body);
-
-  const updates = data;
 
   connectToDatabase()
     .then(async () => {
-        const updatedUser = await User.findByIdAndUpdate(updates);
+        const data = JSON.parse(event.body);
+        const userId = event.pathParameters.id;
+        const updates = data;
+        console.log(userId)
+        const updatedUser = await User.findOneAndUpdate(userId, updates, { new: true });
         callback(null, success(updatedUser))
-        .catch(err => {
-          console.log(err);
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
     })
     .catch(err => {
       callback(null, failure({

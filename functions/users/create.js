@@ -16,15 +16,8 @@ export function main(event, context, callback) {
 
   connectToDatabase()
     .then(async () => {
-        const newUser = await User.create(User);
+        const newUser = await User.create(user);
         callback(null, success(newUser))
-        .catch(err => {
-          console.log(err);
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
     })
     .catch(err => {
       callback(null, failure({

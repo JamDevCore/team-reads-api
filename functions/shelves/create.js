@@ -10,21 +10,14 @@ export function main(event, context, callback) {
   }
   context.callbackWaitsForEmptyEventLoop = false;
   // // Request body is passed in as a JSON encoded string in 'event.body'
-  const data = JSON.parse(event.body);
-
-  const shelf = data;
 
   connectToDatabase()
     .then(async () => {
+        const data = JSON.parse(event.body);
+        const shelf = data;
+        
         const newShelf = await Shelf.create(shelf);
-        callback(null, success(newShelf))
-        .catch(err => {
-          console.log(err);
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
+        callback(null, success(newShelf));
     })
     .catch(err => {
       console.log(err);

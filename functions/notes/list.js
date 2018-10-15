@@ -20,13 +20,13 @@ export function main(event, context, callback) {
           url: event.path,
           count: notes.length,
           data: notes,
-        }))
-        .catch(err => {
-          console.log(err);
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
+        }));
+    })
+    .catch(err => {
+      console.log(err);
+      callback(null, failure({
+        status: false,
+        error: err.message
+      }))
     });
 }

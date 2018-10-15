@@ -10,21 +10,15 @@ export function main(event, context, callback) {
   }
   context.callbackWaitsForEmptyEventLoop = false;
   // // Request body is passed in as a JSON encoded string in 'event.body'
-  const data = JSON.parse(event.body);
-
-  const updates = data;
 
   connectToDatabase()
     .then(async () => {
-        const updatedHighlight = await Highlight.findByIdAndUpdate(updates);
-        callback(null, success(updatedHighlight))
-        .catch(err => {
-          console.log(err);
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
+        const data = JSON.parse(event.body);
+        const updates = data;
+        const highlightId = event.pathParameters.id;
+
+        const updatedHighlight = await Highlight.findOneAndUpdate({ _id: highlightId }, updates, { new: true });
+        callback(null, success(updatedHighlight));
     })
     .catch(err => {
       callback(null, failure({

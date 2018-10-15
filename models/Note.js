@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-delete mongoose.connection.models['Book'];
+delete mongoose.connection.models['Note'];
 
 const NoteSchema = new mongoose.Schema({
   createdAt: {

@@ -23,12 +23,5 @@ export function main(event, context, callback) {
             error: err.message
           }))
         });
-    })
-    .catch(err => {
-      console.log(err);
-      callback(null, failure({
-        status: false,
-        error: err.message
-      }));
     });
 }

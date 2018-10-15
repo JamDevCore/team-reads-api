@@ -10,19 +10,12 @@ export function main(event, context, callback) {
   }
   context.callbackWaitsForEmptyEventLoop = false;
 
-  const noteId = event.pathParameters.id;
-
   connectToDatabase()
     .then(async () => {
+        const noteId = event.pathParameters.id;
+        
         const note = await Note.findOne({ _id: noteId });
-        callback(null, success(note))
-        .catch(err => {
-          console.log(err);
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
+        callback(null, success(note));
     })
     .catch(err => {
       console.log(err);

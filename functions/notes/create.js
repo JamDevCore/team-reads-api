@@ -17,14 +17,7 @@ export function main(event, context, callback) {
   connectToDatabase()
     .then(async () => {
         const newNote = await Note.create(note);
-        callback(null, success(newNote))
-        .catch(err => {
-          console.log(err);
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
+        callback(null, success(newNote));
     })
     .catch(err => {
       console.log(err);

@@ -1,6 +1,6 @@
 import { connectToDatabase } from '../../utility/db-connect';
 import { success, failure } from '../../utility/db-response';
-import User from '../../models/user';
+import User from '../../models/User';
 
 export function main(event, context, callback) {
   // /** Immediate response for WarmUP plugin */
@@ -13,7 +13,7 @@ export function main(event, context, callback) {
   connectToDatabase()
     .then(async () => {
         const params = event.queryStringParameters;
-        const Users = await User.find(params);
+        const users = await User.find(params);
         callback(null, success({
           object: 'list',
           url: event.path,

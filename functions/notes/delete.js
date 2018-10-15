@@ -14,15 +14,8 @@ export function main(event, context, callback) {
 
   connectToDatabase()
     .then(async () => {
-        const note = await Note.finaAndDeleteOne({ _id: noteId });
-        callback(null, success(note))
-        .catch(err => {
-          console.log(err);
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
+        const note = await Note.findAndDeleteOne({ _id: noteId });
+        callback(null, success(note));
     })
     .catch(err => {
       console.log(err);

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-delete mongoose.connection.models['Book'];
+delete mongoose.connection.models['User'];
 
 const UserSchema = new mongoose.Schema({
   createdAt: {
@@ -27,6 +27,11 @@ const UserSchema = new mongoose.Schema({
   teams: {
     type: [String],
     default: []
+  },
+  role: {
+    type: String,
+    default: 'User',
+    required: true
   }
 });
 

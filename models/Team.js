@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-delete mongoose.connection.models['Book'];
+delete mongoose.connection.models['Team'];
 
 const TeamSchema = new mongoose.Schema({
   createdAt: {

@@ -10,19 +10,12 @@ export function main(event, context, callback) {
   }
   context.callbackWaitsForEmptyEventLoop = false;
 
-  const shelfId = event.pathParameters.id;
-
   connectToDatabase()
     .then(async () => {
+        const shelfId = event.pathParameters.id;
+        
         const shelf = await Shelf.findOne({ _id: shelfId });
-        callback(null, success(shelf))
-        .catch(err => {
-          console.log(err);
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
+        callback(null, success(shelf));
     })
     .catch(err => {
       console.log(err);

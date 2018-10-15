@@ -21,12 +21,12 @@ export function main(event, context, callback) {
           count: shelves.length,
           data: shelves,
         }))
-        .catch(err => {
-          console.log(err);
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
+    })
+    .catch(err => {
+      console.log(err);
+      callback(null, failure({
+        status: false,
+        error: err.message
+      }))
     });
 }

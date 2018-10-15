@@ -16,13 +16,6 @@ export function main(event, context, callback) {
     .then(async () => {
         const user = await User.findOneAndDelete({ _id: userId });
         callback(null, success(user))
-        .catch(err => {
-          console.log(err);
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
     })
     .catch(err => {
       console.log(err);

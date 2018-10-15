@@ -15,14 +15,7 @@ export function main(event, context, callback) {
   connectToDatabase()
     .then(async () => {
         const book = await Book.findOne({ _id: bookId });
-        callback(null, success(book))
-        .catch(err => {
-          console.log(err);
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
+        callback(null, success(book));
     })
     .catch(err => {
       console.log(err);

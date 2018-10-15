@@ -18,14 +18,7 @@ export function main(event, context, callback) {
   connectToDatabase()
     .then(async () => {
         const newTeam = await Team.create(team);
-        callback(null, success(newTeam))
-        .catch(err => {
-          console.log(err);
-          callback(null, failure({
-            status: false,
-            error: err.message
-          }))
-        });
+        callback(null, success(newTeam));
     })
     .catch(err => {
       callback(null, failure({
