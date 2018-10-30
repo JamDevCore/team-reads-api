@@ -26,11 +26,7 @@ const BookSchema = new mongoose.Schema({
     required: true,
     default: []
   },
-  notes: {
-    type: [String],
-    default: []
-  },
-  highlights: {
+  discussions: {
     type: [String],
     default: []
   }
