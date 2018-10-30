@@ -8,8 +8,8 @@ const CommentSchema = new mongoose.Schema({
     default: Date.now
   },
   userId: {
-    type: String
-    required: true,
+    type: String,
+    required: true
   },
   discussionId: {
     type: String,

@@ -7,7 +7,7 @@ const DiscussionSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  startedBy: {
+  createdBy: {
     type: String,
     required: true
   },
@@ -15,11 +15,11 @@ const DiscussionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  highlightId: {
-    type: String
-    required: true,
+  title: {
+    type: String,
+    required: true
   },
-  noteId: {
+  note: {
     type: String,
     required: true
   },
