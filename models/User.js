@@ -3,6 +3,10 @@ import mongoose from 'mongoose';
 delete mongoose.connection.models['User'];
 
 const UserSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    required: true
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -13,6 +17,7 @@ const UserSchema = new mongoose.Schema({
   lastName: {
     type: String
   },
+
   email: {
     type: String
   },
@@ -30,7 +35,7 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: 'User',
+    default: 'user',
     required: true
   }
 });
