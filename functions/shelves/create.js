@@ -1,6 +1,7 @@
 import { connectToDatabase } from '../../utility/db-connect';
 import { success, failure } from '../../utility/db-response';
 import Shelf from '../../models/Shelf';
+import User from '../../models/User';
 
 export function main(event, context, callback) {
   // /** Immediate response for WarmUP plugin */
@@ -15,8 +16,13 @@ export function main(event, context, callback) {
     .then(async () => {
         const data = JSON.parse(event.body);
         const shelf = data;
-        
+
         const newShelf = await Shelf.create(shelf);
+        await User.updateOne({ _id: shelf.ownerId }, {
+          $addToSet: {
+            shelves: newShelf._id,
+          },
+        })
         callback(null, success(newShelf));
     })
     .catch(err => {

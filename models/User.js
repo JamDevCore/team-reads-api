@@ -17,7 +17,6 @@ const UserSchema = new mongoose.Schema({
   lastName: {
     type: String
   },
-
   email: {
     type: String
   },
@@ -27,7 +26,7 @@ const UserSchema = new mongoose.Schema({
   },
   shelves: {
     type: [String],
-    default: []
+    default: ['My first shelf']
   },
   teams: {
     type: [String],

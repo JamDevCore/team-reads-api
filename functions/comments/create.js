@@ -1,6 +1,8 @@
 import { connectToDatabase } from '../../utility/db-connect';
 import { success, failure } from '../../utility/db-response';
 import Comment from '../../models/Comment';
+import Discussion from '../../models/Discussion';
+
 
 export function main(event, context, callback) {
   // /** Immediate response for WarmUP plugin */
@@ -17,6 +19,11 @@ export function main(event, context, callback) {
   connectToDatabase()
     .then(async () => {
         const newComment = await Comment.create(comment);
+        await Discussion.updateOne({ _id: comment.discussionId }, {
+          $addToSet: {
+            comments: newComment._id,
+          },
+        })
         callback(null, success(newComment))
     })
     .catch(err => {
