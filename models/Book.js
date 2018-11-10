@@ -7,6 +7,10 @@ const BookSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  ownerId: {
+    type: String,
+    required: true
+  },
   name: {
     type: String,
     required: true,
