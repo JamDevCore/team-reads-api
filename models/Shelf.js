@@ -13,8 +13,7 @@ const ShelfSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    required: true,
-    lowercase: true
+    required: true
   },
   books: {
     type: [String],

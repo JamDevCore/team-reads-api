@@ -13,13 +13,11 @@ const BookSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    required: true,
-    lowercase: true
+    required: true
   },
   author: {
     type: String,
-    required: true,
-    lowercase: true
+    required: true
   },
   isbn: {
     type: String,
