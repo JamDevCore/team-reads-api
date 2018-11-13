@@ -7,7 +7,11 @@ const DiscussionSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  createdBy: {
+  userId: {
+    type: String,
+    required: true
+  },
+  username: {
     type: String,
     required: true
   },
