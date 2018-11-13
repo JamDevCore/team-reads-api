@@ -16,12 +16,10 @@ const DiscussionSchema = new mongoose.Schema({
     required: true
   },
   title: {
-    type: String,
-    required: true
+    type: String
   },
   note: {
-    type: String,
-    required: true
+    type: String
   },
   comments: {
     type: [String],
