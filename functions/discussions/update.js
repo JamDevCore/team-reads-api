@@ -16,8 +16,8 @@ export function main(event, context, callback) {
         const data = JSON.parse(event.body);
         const discussionId = event.pathParameters.id;
         const updates = data;
-        console.log(discussionId)
-        const updatedDiscussion = await Discussion.findOneAndUpdate(discussionId, updates, { new: true });
+        
+        const updatedDiscussion = await Discussion.findOneAndUpdate({ _id: discussionId }, updates, { new: true });
         callback(null, success(updatedDiscussion))
     })
     .catch(err => {
