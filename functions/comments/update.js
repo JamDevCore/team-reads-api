@@ -17,7 +17,7 @@ export function main(event, context, callback) {
         const commentId = event.pathParameters.id;
         const updates = data;
         console.log(commentId)
-        const updatedComment = await Comment.findOneAndUpdate(commentId, updates, { new: true });
+        const updatedComment = await Comment.findOneAndUpdate({ _id: commentId}, updates, { new: true });
         callback(null, success(updatedComment))
     })
     .catch(err => {

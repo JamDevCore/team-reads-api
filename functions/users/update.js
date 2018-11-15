@@ -16,8 +16,7 @@ export function main(event, context, callback) {
         const data = JSON.parse(event.body);
         const userId = event.pathParameters.id;
         const updates = data;
-        console.log(userId)
-        const updatedUser = await User.findOneAndUpdate(userId, updates, { new: true });
+        const updatedUser = await User.findOneAndUpdate({ _id: userId }, updates, { new: true });
         callback(null, success(updatedUser))
     })
     .catch(err => {
