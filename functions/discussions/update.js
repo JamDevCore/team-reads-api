@@ -16,7 +16,14 @@ export function main(event, context, callback) {
         const data = JSON.parse(event.body);
         const discussionId = event.pathParameters.id;
         const updates = data;
-        
+        if (updates.ideas) {
+          await Discussion.findOneAndUpdate({ _id: discussionId }, {
+          $inc: {
+            ideas: 1,
+          }});
+          delete updates.ideas;
+        }
+
         const updatedDiscussion = await Discussion.findOneAndUpdate({ _id: discussionId }, updates, { new: true });
         callback(null, success(updatedDiscussion))
     })

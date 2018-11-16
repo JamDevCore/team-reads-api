@@ -25,6 +25,10 @@ const DiscussionSchema = new mongoose.Schema({
   note: {
     type: String
   },
+  ideas: {
+    type: Number,
+    default: 0
+  },
   comments: {
     type: [String],
     default: []
