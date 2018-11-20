@@ -13,11 +13,18 @@ export function main(event, context, callback) {
   const data = JSON.parse(event.body);
 
   const team = data;
+  const user = team.userId;
+  delete team.userId;
   team.createdAt = Date.now();
 
   connectToDatabase()
     .then(async () => {
         const newTeam = await Team.create(team);
+        await User.findOneAndUpdate({ _id: user }, {
+          $addToSet: {
+            teams: newTeam._id,
+          }
+        })
         callback(null, success(newTeam));
     })
     .catch(err => {
