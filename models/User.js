@@ -40,6 +40,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: 'user',
     required: true
+  },
+  teamInvites: {
+    type: Array,
+    default: []
   }
 });
 

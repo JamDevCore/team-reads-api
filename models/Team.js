@@ -30,6 +30,10 @@ const TeamSchema = new mongoose.Schema({
   shelves: {
     type: [String],
     default: []
+  },
+  joinRequests: {
+    type: Array,
+    default: []
   }
 });
 
