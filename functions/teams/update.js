@@ -14,6 +14,24 @@ export function main(event, context, callback) {
     .then(async () => {
         const data = JSON.parse(event.body);
         const updates = data;
+        if (updates.joinRequest) {
+          await Team.findOneAndUpdate({ _id: teamId }, {
+            $addToSet: {
+              joinRequests: joinRequest,
+            }
+          });
+          delete updates.joinRequest;
+        }
+
+        if (updates.newUser) {
+          await Team.findOneAndUpdate({ _id: teamId }, {
+            $addToSet: {
+              teamMembers: joinRequest,
+            }
+          });
+          delete updates.newUser;
+        }
+
         const teamId = event.pathParameters.id;
         const updatedTeam = await Team.findOneAndUpdate({ _id: teamId }, updates, { new: true });
         callback(null, success(updatedTeam));
