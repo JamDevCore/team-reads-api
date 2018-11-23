@@ -13,6 +13,15 @@ export function main(event, context, callback) {
   connectToDatabase()
     .then(async () => {
         const params = event.queryStringParameters;
+        if(params.search) {
+         const teams = await Team.find({ $text: { $search: params.search } });
+         callback(null, success({
+           object: 'list',
+           url: event.path,
+           count: teams.length,
+           data: teams,
+         }));
+       } else {
         const teams = await Team.find(params);
         callback(null, success({
           object: 'list',
@@ -20,6 +29,7 @@ export function main(event, context, callback) {
           count: teams.length,
           data: teams,
         }));
+      }
     })
     .catch(err => {
       console.log(err);

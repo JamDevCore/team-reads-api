@@ -1,6 +1,7 @@
 import { connectToDatabase } from '../../utility/db-connect';
 import { success, failure } from '../../utility/db-response';
 import Team from '../../models/Team';
+import User from '../../models/User';
 
 export function main(event, context, callback) {
   // /** Immediate response for WarmUP plugin */
