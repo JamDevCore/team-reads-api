@@ -13,7 +13,7 @@ export function main(event, context, callback) {
   connectToDatabase()
     .then(async () => {
         const params = event.queryStringParameters;
-        if(params.search) {
+        if(params && params.search) {
           const books = await Book.find({ $text: { $search: params.search } });
           callback(null, success({
             object: 'list',
