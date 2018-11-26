@@ -25,6 +25,20 @@ export function main(event, context, callback) {
           delete updates.joinRequest;
         }
 
+        if (updates.declineRequest) {
+          await Team.findOneAndUpdate({ _id: teamId }, {
+            $pull: {
+              joinRequests: updates.declineRequest,
+            }
+          });
+          await User.findOneAndUpdate({ _id: updates.declineRequest }, {
+            $pull: {
+              teams: teamId,
+            }
+          });
+          delete updates.declineRequest;
+        }
+
         if (updates.newUser) {
           await Team.findOneAndUpdate({ _id: teamId }, {
             $addToSet: {
@@ -32,6 +46,11 @@ export function main(event, context, callback) {
             },
             $pull: {
               joinRequests: updates.newUser,
+            }
+          });
+          await User.findOneAndUpdate({ _id: updates.newUser }, {
+            $addToSet: {
+              teams: teamId,
             }
           });
           delete updates.newUser;
