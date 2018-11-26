@@ -28,7 +28,10 @@ export function main(event, context, callback) {
         if (updates.newUser) {
           await Team.findOneAndUpdate({ _id: teamId }, {
             $addToSet: {
-              teamMembers: joinRequest,
+              teamMembers: updates.newUser,
+            },
+            $pull: {
+              joinRequests: updates.newUser,
             }
           });
           delete updates.newUser;
