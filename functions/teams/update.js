@@ -40,6 +40,21 @@ export function main(event, context, callback) {
           delete updates.declineRequest;
         }
 
+        if (updates.removeUser) {
+          await Team.findOneAndUpdate({ _id: teamId }, {
+            $pull: {
+              teamMembers: updates.removeUser,
+            },
+          });
+
+          await User.findOneAndUpdate({ _id: updates.removeUser }, {
+            $pull: {
+              teams: teamId,
+            }
+          });
+          delete updates.removeUser;
+        }
+
         if (updates.newUser) {
           await Team.findOneAndUpdate({ _id: teamId }, {
             $addToSet: {
