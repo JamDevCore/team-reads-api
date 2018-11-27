@@ -28,10 +28,6 @@ const UserSchema = new mongoose.Schema({
     type: [String],
     default: []
   },
-  shelves: {
-    type: [String],
-    default: ['My first shelf']
-  },
   teams: {
     type: [String],
     default: []

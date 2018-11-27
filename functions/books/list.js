@@ -1,6 +1,7 @@
 import { connectToDatabase } from '../../utility/db-connect';
 import { success, failure } from '../../utility/db-response';
 import Book from '../../models/Book';
+import Team from '../../models/Team';
 
 export function main(event, context, callback) {
   // /** Immediate response for WarmUP plugin */
@@ -13,7 +14,17 @@ export function main(event, context, callback) {
   connectToDatabase()
     .then(async () => {
         const params = event.queryStringParameters;
-        if(params && params.search) {
+        if (params && params.teamId) {
+          const team = await Team.findOne({ _id: params.teamId });
+          const teamIds = team.teamMembers;
+          const books = await Book.find({ ownerId: { $in: teamIds } });
+          callback(null, success({
+            object: 'list',
+            url: event.path,
+            count: books.length,
+            data: books,
+          }));
+        } else if (params && params.search) {
           const books = await Book.find({ $text: { $search: params.search } });
           callback(null, success({
             object: 'list',
