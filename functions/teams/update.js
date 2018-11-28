@@ -26,6 +26,51 @@ export function main(event, context, callback) {
           delete updates.joinRequest;
         }
 
+        if (updates.acceptInvite) {
+          await Team.findOneAndUpdate({ _id: teamId }, {
+            $pull: {
+              sentInvitations: updates.acceptInvite,
+            },
+            $addToSet: {
+              teamMembers: updates.acceptInvite,
+            },
+          });
+          await User.findOneAndUpdate({ _id: updates.acceptInvite }, {
+            $addToSet: {
+              teams: teamId,
+            }
+          });
+          delete updates.acceptInvite;
+        }
+
+        if (updates.sendInvitation) {
+          await Team.findOneAndUpdate({ _id: teamId }, {
+            $addToSet: {
+              sentInvitations: updates.sendInvitation,
+            }
+          });
+          await User.findOneAndUpdate({ _id: updates.sendInvitation }, {
+            $addToSet: {
+              teamInvites: teamId,
+            }
+          });
+          delete updates.sendInvitation;
+        }
+
+        if (updates.declineInvitation) {
+          await Team.findOneAndUpdate({ _id: teamId }, {
+            $pull: {
+              sentInvitations: updates.declineInvitation,
+            }
+          });
+          await User.findOneAndUpdate({ _id: updates.declineInvitation }, {
+            $pull: {
+              teamInvites: teamId,
+            }
+          });
+          delete updates.declineInvitation;
+        }
+
         if (updates.declineRequest) {
           await Team.findOneAndUpdate({ _id: teamId }, {
             $pull: {

@@ -34,6 +34,10 @@ const TeamSchema = new mongoose.Schema({
   joinRequests: {
     type: Array,
     default: []
+  },
+  sentInvitations: {
+    type: Array,
+    default: []
   }
 });
 
