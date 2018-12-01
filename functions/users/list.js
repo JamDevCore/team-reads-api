@@ -25,9 +25,7 @@ export function main(event, context, callback) {
           data: users,
         }));
       } else if (params && params.search) {
-        console.log(params.search)
           const users = await User.find({ email: { $regex: params.search } }).limit(20);
-          console.log(users)
           callback(null, success({
             object: 'list',
             url: event.path,

@@ -11,6 +11,10 @@ const DiscussionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  bookTitle: {
+    type: String,
+    required: true
+  },
   username: {
     type: String,
     required: true
