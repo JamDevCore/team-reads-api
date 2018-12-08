@@ -13,8 +13,12 @@ export function main(event, context, callback) {
   connectToDatabase()
     .then(async () => {
         const teamId = event.pathParameters.id;
-        
-        const team = await Team.findOne({ _id: teamId });
+
+        const team = await Team.findOne({ _id: teamId })
+        .populate('teamMembers')
+        .populate('joinRequests')
+        .populate('sentInvitations')
+        .exec();
         callback(null, success(team));
     })
     .catch(err => {

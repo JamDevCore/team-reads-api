@@ -3,7 +3,6 @@ import { connectToDatabase } from '../../utility/db-connect';
 import { success, failure } from '../../utility/db-response';
 import User from '../../models/User';
 
-
 const updateUserEmail = async ({ userId, email }) => {
   return new Promise((resolve) => {
     const options = {
