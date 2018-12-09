@@ -17,7 +17,10 @@ export function main(event, context, callback) {
       if (params && params.teamId) {
         const team = await Team.findOne({ _id: params.teamId });
         const teamIds = team.teamMembers;
-        const discussions = await Discussion.find({ userId: { $in: teamIds } });
+        const discussions = await Discussion.find({ userId: { $in: teamIds } })
+        .populate('userId', 'username')
+        .populate('bookId')
+        .exec();
         callback(null, success({
           object: 'list',
           url: event.path,
@@ -25,7 +28,10 @@ export function main(event, context, callback) {
           data: discussions,
         }));
       } else {
-        const discussions = await Discussion.find(params);
+        const discussions = await Discussion.find(params)
+        .populate('userId', 'username')
+        .populate('bookId')
+        .exec();
         callback(null, success({
           object: 'list',
           url: event.path,

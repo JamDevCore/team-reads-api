@@ -12,7 +12,11 @@ export function main(event, context, callback) {
   connectToDatabase()
     .then(async () => {
         const discussionId = event.pathParameters.id;
-        const discussion = await Discussion.findOne({ _id: discussionId });
+        const discussion = await Discussion.findOne({ _id: discussionId })
+        .populate('bookId')
+        .populate('userId', 'username')
+        .populate('comments')
+        .exec();
         callback(null, success(discussion));
     })
     .catch(err => {

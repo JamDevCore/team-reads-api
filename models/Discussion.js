@@ -1,4 +1,10 @@
+import User from './User';
+import Book from './Book';
+import Comment from './Comment';
 import mongoose from 'mongoose';
+
+
+const Schema = mongoose.Schema;
 
 delete mongoose.connection.models['Discussion'];
 
@@ -9,20 +15,12 @@ const DiscussionSchema = new mongoose.Schema({
   },
   userId: {
     type: String,
-    required: true
+    ref: 'User'
   },
-  bookTitle: {
-    type: String,
-    required: true
-  },
-  username: {
-    type: String,
-    required: true
-  },
-  bookId: {
-    type: String,
-    required: true
-  },
+  bookId: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Book'
+    }],
   title: {
     type: String
   },
@@ -33,10 +31,10 @@ const DiscussionSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  comments: {
-    type: [String],
-    default: []
-  }
+  comments: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Comment'
+    }]
 });
 
 export default mongoose.model('Discussion', DiscussionSchema);
