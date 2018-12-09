@@ -35,7 +35,7 @@ functions:
       - http:
           path: book
           method: post
-          private: false
+          private: true
           cors: true
   listBooks:
     handler: functions/books/list.main
@@ -44,7 +44,7 @@ functions:
       - http:
           path: book
           method: get
-          private: false
+          private: true
           cors: true
   findBook:
     handler: functions/books/find.main
@@ -53,7 +53,7 @@ functions:
       - http:
           path: book/{id}
           method: get
-          private: false
+          private: true
           cors: true
   deleteBook:
     handler: functions/books/delete.main
@@ -62,7 +62,7 @@ functions:
       - http:
           path: book/{id}
           method: delete
-          private: false
+          private: true
           cors: true
   updateBook:
     handler: functions/books/update.main
@@ -71,7 +71,7 @@ functions:
       - http:
           path: book/{id}
           method: put
-          private: false
+          private: true
           cors: true
 # Shelves
   createShelf:
@@ -81,7 +81,7 @@ functions:
       - http:
           path: shelf
           method: post
-          private: false
+          private: true
           cors: true
   listShelves:
     handler: functions/shelves/list.main
@@ -90,7 +90,7 @@ functions:
       - http:
           path: shelf
           method: get
-          private: false
+          private: true
           cors: true
   findShelf:
     handler: functions/shelves/find.main
@@ -99,7 +99,7 @@ functions:
       - http:
           path: shelf/{id}
           method: get
-          private: false
+          private: true
           cors: true
   deleteShelf:
     handler: functions/shelves/delete.main
@@ -108,7 +108,7 @@ functions:
       - http:
           path: shelf/{id}
           method: delete
-          private: false
+          private: true
           cors: true
   updateShelf:
     handler: functions/shelves/update.main
@@ -117,7 +117,7 @@ functions:
       - http:
           path: shelf/{id}
           method: put
-          private: false
+          private: true
           cors: true
 # Teams
   createTeam:
@@ -127,7 +127,7 @@ functions:
       - http:
           path: team
           method: post
-          private: false
+          private: true
           cors: true
   listTeams:
     handler: functions/teams/list.main
@@ -136,7 +136,7 @@ functions:
       - http:
           path: team
           method: get
-          private: false
+          private: true
           cors: true
   findTeam:
     handler: functions/teams/find.main
@@ -145,7 +145,7 @@ functions:
       - http:
           path: team/{id}
           method: get
-          private: false
+          private: true
           cors: true
   deleteTeam:
     handler: functions/teams/delete.main
@@ -154,7 +154,7 @@ functions:
       - http:
           path: team/{id}
           method: delete
-          private: false
+          private: true
           cors: true
   updateTeam:
     handler: functions/teams/update.main
@@ -163,7 +163,7 @@ functions:
       - http:
           path: team/{id}
           method: put
-          private: false
+          private: true
           cors: true
   # Users
   createUser:
@@ -173,7 +173,7 @@ functions:
       - http:
           path: user
           method: post
-          private: false
+          private: true
           cors: true
   listUsers:
     handler: functions/users/list.main
@@ -182,7 +182,7 @@ functions:
       - http:
           path: user
           method: get
-          private: false
+          private: true
           cors: true
   findUser:
     handler: functions/users/find.main
@@ -191,7 +191,7 @@ functions:
       - http:
           path: user/{id}
           method: get
-          private: false
+          private: true
           cors: true
   deleteUser:
     handler: functions/users/delete.main
@@ -200,7 +200,7 @@ functions:
       - http:
           path: user/{id}
           method: delete
-          private: false
+          private: true
           cors: true
   updateUser:
     handler: functions/users/update.main
@@ -209,7 +209,7 @@ functions:
       - http:
           path: user/{id}
           method: put
-          private: false
+          private: true
           cors: true
   # Comments
   createComment:
@@ -219,7 +219,7 @@ functions:
       - http:
           path: comment
           method: post
-          private: false
+          private: true
           cors: true
   listComments:
     handler: functions/comments/list.main
@@ -228,7 +228,7 @@ functions:
       - http:
           path: comment
           method: get
-          private: false
+          private: true
           cors: true
   findComment:
     handler: functions/comments/find.main
@@ -237,7 +237,7 @@ functions:
       - http:
           path: comment/{id}
           method: get
-          private: false
+          private: true
           cors: true
   deleteComment:
     handler: functions/comments/delete.main
@@ -246,7 +246,7 @@ functions:
       - http:
           path: comment/{id}
           method: delete
-          private: false
+          private: true
           cors: true
   updateComment:
     handler: functions/comments/update.main
@@ -255,7 +255,7 @@ functions:
       - http:
           path: comment/{id}
           method: put
-          private: false
+          private: true
           cors: true
   # Discussion
   createDiscussion:
@@ -265,7 +265,7 @@ functions:
       - http:
           path: discussion
           method: post
-          private: false
+          private: true
           cors: true
   listDiscussions:
     handler: functions/discussions/list.main
@@ -274,7 +274,7 @@ functions:
       - http:
           path: discussion
           method: get
-          private: false
+          private: true
           cors: true
   findDiscussion:
     handler: functions/discussions/find.main
@@ -283,7 +283,7 @@ functions:
       - http:
           path: discussion/{id}
           method: get
-          private: false
+          private: true
           cors: true
   deleteDiscussion:
     handler: functions/discussions/delete.main
@@ -292,7 +292,7 @@ functions:
       - http:
           path: discussion/{id}
           method: delete
-          private: false
+          private: true
           cors: true
   updateDiscussion:
     handler: functions/discussions/update.main
@@ -301,5 +301,5 @@ functions:
       - http:
           path: discussion/{id}
           method: put
-          private: false
+          private: true
           cors: true
