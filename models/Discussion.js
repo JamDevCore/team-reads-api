@@ -17,10 +17,10 @@ const DiscussionSchema = new mongoose.Schema({
     type: String,
     ref: 'User'
   },
-  bookId: [{
+  bookId: {
       type: Schema.Types.ObjectId,
       ref: 'Book'
-    }],
+    },
   title: {
     type: String
   },

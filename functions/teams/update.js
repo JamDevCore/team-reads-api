@@ -38,7 +38,10 @@ export function main(event, context, callback) {
           await User.findOneAndUpdate({ _id: updates.acceptInvite }, {
             $addToSet: {
               teams: teamId,
-            }
+            },
+            $pull: {
+              teamInvites: teamId,
+            },
           });
           delete updates.acceptInvite;
         }
