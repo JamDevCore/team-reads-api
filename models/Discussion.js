@@ -18,9 +18,9 @@ const DiscussionSchema = new mongoose.Schema({
     ref: 'User'
   },
   bookId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Book'
-    },
+    type: Schema.Types.ObjectId,
+    ref: 'Book'
+  },
   title: {
     type: String
   },

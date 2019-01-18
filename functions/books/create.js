@@ -9,10 +9,11 @@ export function main(event, context, callback) {
     console.log('WarmUP - Lambda is warm!')
     return callback(null, 'Lambda is warm!')
   }
+
   context.callbackWaitsForEmptyEventLoop = false;
   // // Request body is passed in as a JSON encoded string in 'event.body'
   const data = JSON.parse(event.body);
-  const userId = data.userId;
+  const { userId } = data;
 
   // remove the user id for creating book
   delete data.userId;
@@ -22,15 +23,15 @@ export function main(event, context, callback) {
 
   connectToDatabase()
     .then(async () => {
-        const newBook = await Book.create(book);
-        await User.updateOne({ _id: userId }, {
-          $addToSet: {
-            books: newBook._id,
-          },
-        });
-        callback(null, success(newBook));
+      const newBook = await Book.create(book);
+      await User.updateOne({ _id: userId }, {
+        $addToSet: {
+          books: newBook._id,
+        },
+      });
+      callback(null, success(newBook));
     })
-    .catch(err => {
+    .catch((err) => {
       callback(null, failure({
         status: false,
         error: err.message

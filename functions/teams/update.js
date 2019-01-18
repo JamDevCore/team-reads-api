@@ -13,119 +13,133 @@ export function main(event, context, callback) {
 
   connectToDatabase()
     .then(async () => {
-        const data = JSON.parse(event.body);
-        const updates = data;
-        const teamId = event.pathParameters.id;
+      const data = JSON.parse(event.body);
+      const updates = data;
+      const teamId = event.pathParameters.id;
 
-        if (updates.joinRequest) {
-          await Team.findOneAndUpdate({ _id: teamId }, {
-            $addToSet: {
-              joinRequests: updates.joinRequest,
-            }
-          });
-          delete updates.joinRequest;
-        }
+      if (updates.joinRequest) {
+        await Team.findOneAndUpdate({ _id: teamId }, {
+          $addToSet: {
+            joinRequests: updates.joinRequest,
+          },
+        });
+        delete updates.joinRequest;
+      }
 
-        if (updates.acceptInvite) {
-          await Team.findOneAndUpdate({ _id: teamId }, {
-            $pull: {
-              sentInvitations: updates.acceptInvite,
-            },
-            $addToSet: {
-              teamMembers: updates.acceptInvite,
-            },
-          });
-          await User.findOneAndUpdate({ _id: updates.acceptInvite }, {
-            $addToSet: {
-              teams: teamId,
-            },
-            $pull: {
-              teamInvites: teamId,
-            },
-          });
-          delete updates.acceptInvite;
-        }
+      if (updates.cancelInvitation) {
+        await Team.findOneAndUpdate({ _id: teamId }, {
+          $pull: {
+            sentInvitations: updates.cancelInvitation,
+          },
+        });
+        await User.findOneAndUpdate({ _id: updates.cancelInvitation }, {
+          $pull: {
+            teamInvites: teamId,
+          },
+        });
+        delete updates.cancelInvitation;
+      }
 
-        if (updates.sendInvitation) {
-          await Team.findOneAndUpdate({ _id: teamId }, {
-            $addToSet: {
-              sentInvitations: updates.sendInvitation,
-            }
-          });
-          await User.findOneAndUpdate({ _id: updates.sendInvitation }, {
-            $addToSet: {
-              teamInvites: teamId,
-            }
-          });
-          delete updates.sendInvitation;
-        }
+      if (updates.acceptInvite) {
+        await Team.findOneAndUpdate({ _id: teamId }, {
+          $pull: {
+            sentInvitations: updates.acceptInvite,
+          },
+          $addToSet: {
+            teamMembers: updates.acceptInvite,
+          },
+        });
+        await User.findOneAndUpdate({ _id: updates.acceptInvite }, {
+          $addToSet: {
+            teams: teamId,
+          },
+          $pull: {
+            teamInvites: teamId,
+          },
+        });
+        delete updates.acceptInvite;
+      }
 
-        if (updates.declineInvitation) {
-          await Team.findOneAndUpdate({ _id: teamId }, {
-            $pull: {
-              sentInvitations: updates.declineInvitation,
-            }
-          });
-          await User.findOneAndUpdate({ _id: updates.declineInvitation }, {
-            $pull: {
-              teamInvites: teamId,
-            }
-          });
-          delete updates.declineInvitation;
-        }
+      if (updates.sendInvitation) {
+        await Team.findOneAndUpdate({ _id: teamId }, {
+          $addToSet: {
+            sentInvitations: updates.sendInvitation,
+          }
+        });
+        await User.findOneAndUpdate({ _id: updates.sendInvitation }, {
+          $addToSet: {
+            teamInvites: teamId,
+          }
+        });
+        delete updates.sendInvitation;
+      }
 
-        if (updates.declineRequest) {
-          await Team.findOneAndUpdate({ _id: teamId }, {
-            $pull: {
-              joinRequests: updates.declineRequest,
-            }
-          });
-          await User.findOneAndUpdate({ _id: updates.declineRequest }, {
-            $pull: {
-              teams: teamId,
-            }
-          });
-          delete updates.declineRequest;
-        }
+      if (updates.declineInvitation) {
+        await Team.findOneAndUpdate({ _id: teamId }, {
+          $pull: {
+            sentInvitations: updates.declineInvitation,
+          }
+        });
+        await User.findOneAndUpdate({ _id: updates.declineInvitation }, {
+          $pull: {
+            teamInvites: teamId,
+          }
+        });
+        delete updates.declineInvitation;
+      }
 
-        if (updates.removeUser) {
-          await Team.findOneAndUpdate({ _id: teamId }, {
-            $pull: {
-              teamMembers: updates.removeUser,
-            },
-          });
+      if (updates.declineRequest) {
+        await Team.findOneAndUpdate({ _id: teamId }, {
+          $pull: {
+            joinRequests: updates.declineRequest,
+          },
+        });
+        await User.findOneAndUpdate({ _id: updates.declineRequest }, {
+          $pull: {
+            teams: teamId,
+          }
+        });
+        delete updates.declineRequest;
+      }
 
-          await User.findOneAndUpdate({ _id: updates.removeUser }, {
-            $pull: {
-              teams: teamId,
-            }
-          });
-          delete updates.removeUser;
-        }
+      if (updates.removeUser) {
+        await Team.findOneAndUpdate({ _id: teamId }, {
+          $pull: {
+            teamMembers: updates.removeUser,
+          },
+        });
 
-        if (updates.newUser) {
-          await Team.findOneAndUpdate({ _id: teamId }, {
-            $addToSet: {
-              teamMembers: updates.newUser,
-            },
-            $pull: {
-              joinRequests: updates.newUser,
-            }
-          });
-          await User.findOneAndUpdate({ _id: updates.newUser }, {
-            $addToSet: {
-              teams: teamId,
-            }
-          });
-          delete updates.newUser;
-        }
-        const updatedTeam = await Team.findOneAndUpdate({ _id: teamId }, updates, { new: true });
-        callback(null, success(updatedTeam));
+        await User.findOneAndUpdate({ _id: updates.removeUser }, {
+          $pull: {
+            teams: teamId,
+          }
+        });
+        delete updates.removeUser;
+      }
+
+      if (updates.newUser) {
+        await Team.findOneAndUpdate({ _id: teamId }, {
+          $addToSet: {
+            teamMembers: updates.newUser,
+          },
+          $pull: {
+            joinRequests: updates.newUser,
+          }
+        });
+        await User.findOneAndUpdate({ _id: updates.newUser }, {
+          $addToSet: {
+            teams: teamId,
+          }
+        });
+        delete updates.newUser;
+      }
+      const updatedTeam = await Team.findOneAndUpdate({ _id: teamId }, updates, { new: true });
+      callback(null, success(updatedTeam));
     })
-    .catch(err => {
+    .catch((err)=> {
       callback(null, failure({
         status: false,
         error: err.message
       }));
-    });
+});
 }

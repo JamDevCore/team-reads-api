@@ -9,6 +9,7 @@ plugins:
 # serverless-webpack configuration
 # Enable auto-packing of external modules
 custom:
+  stage: ${opt:stage, self:provider.stage}
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
@@ -18,6 +19,8 @@ provider:
   runtime: nodejs8.10
   profile: team-reads
   stage: dev
+  apiKeys:
+      - ${self:custom.stage}-team-reads-dev
   region: us-east-1
   # To load environment variables externally
   # rename env.example to env.yml and uncomment

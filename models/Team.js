@@ -22,10 +22,6 @@ const TeamSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   }],
-  numberOfUsers: {
-    type: Number,
-    default: 0
-  },
   teamName: {
     type: String,
     required: true
