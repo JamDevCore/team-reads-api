@@ -7,38 +7,25 @@ import Book from '../../models/Book';
 const getUserTotals = async ({ user }) => {
   const id = user._id;
 
-  const query = await Book.aggregate([
-    {
-      $match: { ownerId: id },
-    },
-    {
-      $project: {
-        numberOfDiscussions: { $size: '$discussions' },
-      },
-    },
-    {
-      $project: {
-        discussions: { $sum: '$numberOfDiscussions' },
-      },
-    },
-  ]);
-  const insightQuery = await Discussion.aggregate([
+  const bookTotal = await Book.find({ ownerId: id }).count();
+  const query = await Discussion.aggregate([
     {
       $match: {
         userId: id,
       },
     },
     {
-      $project: {
-        totalIdeas: { $sum: 'lighbulbs' },
+      $group: {
+        _id: null,
+        discussions: { $sum: 1 },
+        totalIdeas: { $sum: '$ideas' },
       },
     },
   ]);
-
   return {
-    totalDiscussions: query.length > 0 ? query[0].discussions : 0,
-    bookTotal: query.length,
-    totalInsights: insightQuery > 0 ? insightQuery[0].totalIdeas : 0,
+    discussionTotal: query[0].discussions,
+    bookTotal,
+    insightTotal: query[0].totalIdeas,
   };
 };
 export function main(event, context, callback) {
@@ -54,6 +41,7 @@ export function main(event, context, callback) {
       const userId = event.pathParameters.id;
       const user = await User.findOne({ _id: userId });
       const totals = await getUserTotals({ user });
+      console.log(totals);
       callback(null, success({
         totals,
         user,
